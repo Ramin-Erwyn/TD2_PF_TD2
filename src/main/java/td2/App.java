@@ -2,6 +2,7 @@ package td2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class App {
     //Question 1.1
@@ -22,7 +23,7 @@ public class App {
     }
     //Question 1.2
 
-    public static <ToString> void q1b() {
+    /* public static <ToString> void q1b() {
         List<String> liste = List.of("bjr", "hello");
         // List<String> List = new ArrayList<>();
         // List.add("a");
@@ -35,8 +36,17 @@ public class App {
             return liste;
         };
 
-    }
+    }*/
 
+    public static void question2() {
+        Predicate<Integer> tailleTropPetit = taille -> taille < 100;
+        Predicate<Integer> tailleTropGrand = taille -> taille > 200;
+        Predicate<Integer> mauvaiseTaille = tailleTropPetit.or(tailleTropGrand);
+        Predicate<Integer> tailleCorrecte = mauvaiseTaille.negate();
+        Predicate<Double> poidsTropLourd = poids -> poids > 150.0;
+        Predicate<Double> poidsCorrecte = poidsTropLourd.negate();
+        Predicate<Paire<Integer, Double>> accesAutorise = acces -> tailleCorrecte.test(acces.fst) && poidsCorrecte.test(acces.snd);
+    }
     public static void main(String[] args) {
         System.out.println("-------Q1.1--------");
         q1a();
